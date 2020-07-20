@@ -1,8 +1,6 @@
-﻿using Microsoft.Owin;
-using Owin;
+﻿using Owin;
 
-[assembly: OwinStartupAttribute(typeof(MVC2EFSecured.UI.MVC.Startup))]
-namespace MVC2EFSecured.UI.MVC
+namespace MVC2EFSecured
 {
     public partial class Startup
     {

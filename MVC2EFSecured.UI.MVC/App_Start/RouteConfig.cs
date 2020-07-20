@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace MVC2EFSecured.UI.MVC
+namespace MVC2EFSecured
 {
     public class RouteConfig
     {

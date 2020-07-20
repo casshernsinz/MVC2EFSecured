@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace MVC2EFSecured.UI.MVC.Models
+namespace MVC2EFSecured.Models
 {
     public class IndexViewModel
     {
@@ -58,6 +58,7 @@ namespace MVC2EFSecured.UI.MVC.Models
         public string ConfirmPassword { get; set; }
     }
 
+
     public class AddPhoneNumberViewModel
     {
         [Required]
@@ -83,4 +84,5 @@ namespace MVC2EFSecured.UI.MVC.Models
         public string SelectedProvider { get; set; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
     }
+
 }
