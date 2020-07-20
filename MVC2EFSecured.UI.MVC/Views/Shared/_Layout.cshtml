@@ -26,7 +26,7 @@
             <div class="inner">
                 <!-- Header -->
                 <header id="header">
-                    <div class="logo">
+                    <div class="logo">                                                                                                            
                         <a href="index.html">Ramayana</a>
                     </div>
                 </header>
@@ -45,26 +45,27 @@
                 <!-- Menu -->
                 <nav id="menu">
                     <ul>
-                        <li><a href="index.html">Homepage</a></li>
-                        <li><a href="simple_page.html">Simple Page</a></li>
-                        <li><a href="shortcodes.html">Shortcodes</a></li>
+                        <li><a href="@Url.Action("Index","Home")">Homepage</a></li>
+                        <li><a href="@Url.Action("Index","Books")"></a>Books</li>
+                        <li><a href="@Url.Action("Index","Genres")"></a>Genres</li>
+                        <li><a href="@Url.Action("Index","Authors")"></a>Authors</li>
+                        <li><a href="@Url.Action("Index","Publishers")"></a>Publishers</li>
                         <li>
-                            <span class="opener">Dropdown One</span>
+                            <span class="opener">Admin Functions</span>
                             <ul>
-                                <li><a href="#">First Sub Menu</a></li>
-                                <li><a href="#">Second Sub Menu</a></li>
-                                <li><a href="#">Third Sub Menu</a></li>
+                                <li><a href="@Url.Action("Index","UsersAdmin")">Users Admin</a></li>
+                                <li><a href="@Url.Action("Index","RolesAdmin")">Roles Admin</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <span class="opener">Dropdown Two</span>
-                            <ul>
-                                <li><a href="#">Sub Menu #1</a></li>
-                                <li><a href="#">Sub Menu #2</a></li>
-                                <li><a href="#">Sub Menu #3</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="https://www.google.com">External Link</a></li>
+                        @*<li>
+                                <span class="opener">Users Admin</span>
+                                <ul>
+                                    <li><a href="#">Sub Menu #1</a></li>
+                                    <li><a href="#">Sub Menu #2</a></li>
+                                    <li><a href="#">Sub Menu #3</a></li>
+                                </ul>
+                            </li>*@
+                        <li><a href="@Url.Action("Contact","Home")">Contact</a></li>
                     </ul>
                 </nav>
 
@@ -76,19 +77,19 @@
                     <div class="owl-carousel owl-theme">
                         <a href="#">
                             <div class="featured-item">
-                                <img src="assets/images/featured_post_01.jpg" alt="featured one">
+                                <img src="~/Content/assets/images/featured_post_01.jpg" alt="featured one">
                                 <p>Aliquam egestas convallis eros sed gravida. Curabitur consequat sit.</p>
                             </div>
                         </a>
                         <a href="#">
                             <div class="featured-item">
-                                <img src="assets/images/featured_post_01.jpg" alt="featured two">
+                                <img src="~/Content/assets/images/featured_post_01.jpg" alt="featured two">
                                 <p>Donec a scelerisque massa. Aliquam non iaculis quam. Duis arcu turpis.</p>
                             </div>
                         </a>
                         <a href="#">
                             <div class="featured-item">
-                                <img src="assets/images/featured_post_01.jpg" alt="featured three">
+                                <img src="~/Content/assets/images/featured_post_01.jpg" alt="featured three">
                                 <p>Suspendisse ac convallis urna, vitae luctus ante. Donec sit amet.</p>
                             </div>
                         </a>
@@ -98,14 +99,12 @@
                 <!-- Footer -->
                 <footer id="footer">
                     <p class="copyright">
-                        Copyright &copy; 2019 Company Name
+                        Copyright &copy; @DateTime.Now.Year David Hall
                         <br>Designed by <a rel="nofollow" href="https://www.facebook.com/templatemo">Template Mo</a>
                     </p>
                 </footer>
-
             </div>
         </div>
-
     </div>
     <!-- Scripts -->
     <!-- Bootstrap core JavaScript -->
@@ -116,6 +115,7 @@
     <script src="~/Content/assets/js/transition.js"></script>
     <script src="~/Content/assets/js/owl-carousel.js"></script>
     <script src="~/Content/assets/js/custom.js"></script>
-</body>
 
+    @RenderSection("scipts", false)
+</body>
 </html>
