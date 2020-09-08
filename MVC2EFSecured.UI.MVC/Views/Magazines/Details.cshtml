@@ -1,0 +1,66 @@
+﻿@model MVC2EFSecured.DATA.EF_2.Magazine
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Magazine</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MagazineTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MagazineTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IssuesPerYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IssuesPerYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PricePerYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PricePerYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Circulation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Circulation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PublishRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PublishRate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MagazineID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

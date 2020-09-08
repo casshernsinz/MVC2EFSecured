@@ -1,0 +1,124 @@
+﻿@model MVC2EFSecured.DATA.EF_2.Book
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<!--File Upload for Edit
+    1) Complete the BeginForm()
+    2) Add a HiddenFor() for the image to be updated (hold the current image if no update is made to that field
+    3) Add input type file name must match the HttpPostedFileBase in the controller action
+    4) Code the controller action to accept the file
+    -->
+
+
+@using (Html.BeginForm("Edit", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    //Antiforgery token - Makes sure that the request and post originate from the same location
+    @Html.AntiForgeryToken()
+    //This (HiddenFor()) provides the BookID for the GET (to retreive the book to be updated)
+    //and is provided in the POST to update the correct record in the DB
+    @Html.HiddenFor(model => model.BookID)
+    //Ensure we keep the existing Image if no NEW image is supplied (the fileUpload will NOT populate from the existing record
+    @Html.HiddenFor(model => model.BookImage)
+    <div id="bookContainer">
+        <div id="bookHeader">
+            <div id="bookHeaderLeft">
+                <h2>
+                    @*@Html.LabelFor(model => model.BookTitle, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    @Html.EditorFor(model => model.BookTitle, new { htmlAttributes = new { @class = "form-control", placeholder = "Book Title" } })
+                    @Html.ValidationMessageFor(model => model.BookTitle, "", new { @class = "text-danger" })
+                </h2>
+            </div>
+            <div id="bookHeaderRight">
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", placeholder = "Price" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div id="bookLeft">
+            <p>
+                <!--In the edit, we DO have an object (as opposed to the create where NO object exists) so we update the image tag to include the Image associated with THIS record (atModel.)-->
+                <img src="~/Content/images/Books/" title="No Book Image" alt="default image" /><br />
+                <input type="file" name="imageupload" />
+                @*<br />This is NOT wired up - it will NOT function*@
+            </p>
+            <p>
+                @Html.LabelFor(model => model.ISBN, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.ISBN, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ISBN, "", new { @class = "text-danger" })
+            </p>
+            <p>
+                @Html.LabelFor(model => model.IsSiteFeature, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.IsSiteFeature)
+                @Html.ValidationMessageFor(model => model.IsSiteFeature, "", new { @class = "text-danger" })
+            </p>
+        </div>
+        <div id="bookRight">
+            <p>
+                @Html.LabelFor(model => model.BookStatusID, "Book Status", htmlAttributes: new { @class = "control-label col-md-2" })
+                <!--             ViewBag (contr.), null-(selectList), prompt text, htmlAttributes-->
+                @Html.DropDownList("BookStatusID", null, "Close Status", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BookStatusID, "", new { @class = "text-danger" })
+            </p>
+            <p>
+                @Html.LabelFor(model => model.PublisherID, "Publisher", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.DropDownList("PublisherID", null, "No Publisher Selected", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PublisherID, "", new { @class = "text-danger" })
+            </p>
+            <p>
+                @Html.LabelFor(model => model.PublishDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.PublishDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PublishDate, "", new { @class = "text-danger" })
+            </p>
+            <p>
+                @Html.LabelFor(model => model.GenreID, "Genre", htmlAttributes: new { @class = "control-label col-md-2" })
+                <!--Genre has a different prompt text because it is NOT a required field. We do not want to force an entry if one is NOT required by the DB. In an edit, the prompt text gives a NULL value a place to popoulate; if we encounter a null and DONT have prompt text, we will receive an exception that states the selected value is not contained in the list-->
+                @Html.DropDownList("GenreID", null, "No Genre Selected", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.GenreID, "", new { @class = "text-danger" })
+            </p>
+            <p>
+                @Html.LabelFor(model => model.IsGenreFeature, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.IsGenreFeature)
+                @Html.ValidationMessageFor(model => model.IsGenreFeature, "", new { @class = "text-danger" })
+            </p>
+            <p>
+                @Html.LabelFor(model => model.UnitsSold, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.UnitsSold, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UnitsSold, "", new { @class = "text-danger" })
+            </p>
+            <p>
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            </p>
+            <p>
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </p>
+            <p></p>
+            <p></p>
+        </div>
+        <div class="clearfix"></div>
+        <div id="bookFooter">
+            <div id="bookFooterLeft">
+                @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-danger" })
+            </div>
+            <div id="bookFooterRight">
+                <!--Update the text on the submit to reflect edit/update-->
+                <input type="submit" value="Update Book" class="btn btn-primary" />
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(function () {
+            $("#PublishDate").datepicker();
+        });
+    </script>
+}

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<MVC2EFSecured.DATA.EF_2.Magazine>
+
+@{
+    ViewBag.Title = "Magazines";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MagazineTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IssuesPerYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PricePerYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Circulation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PublishRate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MagazineTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IssuesPerYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PricePerYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Circulation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PublishRate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MagazineID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MagazineID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MagazineID })
+        </td>
+    </tr>
+}
+
+</table>

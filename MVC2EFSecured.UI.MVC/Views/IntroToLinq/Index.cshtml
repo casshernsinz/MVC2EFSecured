@@ -1,0 +1,167 @@
+﻿
+@{
+                /**/
+
+                ViewBag.Title = "Intro to Linq";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@{
+    #region Sample Simple Data Collections
+
+    //array
+    //collection Initialization syntax
+    string[] names = {"Carlos","Joe Bob","Jackie","Suzanna","Ann","Carole","Juanita",
+"Chaz","Li","Jerome","Mallory","Quenton","Thomas","Summer","Persiphone", "John",
+"Sergio","Alexandra","Gabriella","Bob","Frank"};
+
+    //typed list - List<T>
+    //Collection is Strongly Typed - one data type collected
+    //Expands and contracts (allows for addition and removal of objects from the collection)
+    List<decimal>
+        prices = new List<decimal>
+            () { 19.95m, 20, 23.99m, 272, 300, 350.24m, 100, 100 };
+
+    //List is expandable
+    prices.Add(1);//added to the end of the list (collection)
+    prices.Insert(0, 1000);//added to the beginning of the list (index,value)
+
+    #endregion
+
+    #region Syntax Points of Interest
+    /*
+    * Language Integrated Query
+    * C# syntax that allows for the Querying of Multiple DataSources
+    * LinqToObject - Used to manipulate C# Collections
+    * LinqToEntity (LinqToEF) - Used to manipulate DB data via Entity Framework
+    * Other Linq values LinqToXML, LinqToMongoDB(download), LinqToJSON (download), and more...
+    *
+    * Linq is part of a major enhancement to the .net framework with the 3.5 release
+    * (4.6.1 is the current VS2017 .net version)
+    *
+    * Object Initializers
+    * Allow for you to "pile on" to a ctor with additional property=value pairs
+    * beyond what the ctor usually gives you.
+    *
+    * Anonymous types
+    * Let you create an object of a new "on the fly, temporary" data type. They are
+    * only really helpful if you have no plans to create more objects of that type.
+    * Mostly used with Linq
+    *
+    * Linq Method Syntax - uses standard C# method calls with lambda => expressions
+    * Linq Keyword Syntax - Has a Sql feel, using keywords in c#, sometimes referred to as Query
+    * syntax.
+    *
+    * You can use these syntaxes together. However if you start with Method syntax
+    * you must END with method syntax. If you want the combo of the 2, Keyword MUST
+    * begin the statement. If you use the keyword syntax it MUST end with a Select.
+    *
+    * Linq is written the way that SQL is PROCESSED. Linq (keyword syntax) starts with a from
+    * and ENDS with a select.
+    *
+    */
+    #endregion
+
+    #region Linq Keyword and Method Syntax
+    //retrieve all names from the collection that are longer than 7 characters
+
+    //keyword - (query) syntax
+    //var [identifier] = from [otfv] in [collection] (otfv = on the fly variable)
+    var namesOver7 = from n in names
+                         //where [someCondition]
+                     where n.Length > 7
+                     //orderby [desiredValue] - Default is Ascending sort (no need to specify)
+                     orderby n.Length descending
+                     //select [value]
+                     select n;
+
+    //method - (lambda) syntax
+    //var [identifier] = [Collection].[Method(lambda expression [otfv]=>[otv].[property]
+    //[operator] [value])].Method(lambda expression[otfv]=>[otf].Property [operator][value])
+    var namesOver7method = names.Where(n => n.Length > 7).OrderByDescending(n => n.Length);
+
+    //keyword example
+    //prices between 45 and 500
+    var pricesBtwn45and500KW = from p in prices
+                               where p >= 45 && p <= 500
+                               orderby p
+                               select p;
+
+    //method
+    var pricesBtwn45and500Method = prices.Where(p => p >= 45 && p <= 500).OrderBy(p => p);
+
+    MVC2EFSecured.DATA.EF_2.BookStoreEntities ctx = new MVC2EFSecured.DATA.EF_2.BookStoreEntities();
+
+    //retrieve authors whose country is NOT usa
+    //method
+    var notGreatestCountryOnEarth = ctx.Authors.Where(a => a.Country.ToLower() != "usa").Distinct()
+    .OrderBy(a => a.LastName);//Use Distinct() to eliminate duplications
+
+    //keyword return specific properties
+    var notGreatestCountryOnEarthKW = from a in ctx.Authors
+                                      where a.Country.ToLower() != "usa"
+                                      orderby a.LastName
+                                      select new
+                                      {
+                                          nameAndCountry = a.FirstName + " " + a.LastName + " - " + a.Country
+                                      };
+    #endregion
+}
+
+<h5>Names Longer than Seven Characters (Keyword Syntax)</h5>
+<ul>
+    @foreach (var x in namesOver7)
+    {
+        <li>@x</li>
+    }
+</ul>
+<h5>Names Longer than Seven Characters (Methods Syntax)</h5>
+<ul>
+    @foreach (var x in namesOver7method)
+    {
+        <li>@x</li>
+    }
+</ul>
+<h5>Prices Between 45 &amp; 500(Keyword Syntax)</h5>
+<ul>
+    @foreach (var x in pricesBtwn45and500KW)
+    {
+        <li>@string.Format($"{x:c}")</li>
+    }
+</ul>
+<h5>Prices Between 45 &amp; 500(Method Syntax)</h5>
+<ul>
+    @foreach (var x in pricesBtwn45and500Method)
+    {
+        <li>@string.Format($"{x:c}")</li>
+    }
+</ul>
+<h5>Authors That are NOT in the USA(Keyword Syntax)</h5>
+<ul>
+    @foreach (var x in notGreatestCountryOnEarthKW)
+    {
+        <li>
+            @x.nameAndCountry
+        </li>
+    }
+</ul>
+<h5>Authors that are NOT in the USA (Method Syntax)</h5>
+<ul>
+    @foreach (var x in notGreatestCountryOnEarth)
+    {
+        <li>@x.FirstName @x.LastName</li>
+    }
+</ul>
+<h5>Total Price Value: @string.Format($"{prices.Sum():c}")</h5>
+<h5>Average Price Value: @string.Format($"{prices.Average():c}")</h5>
+<h5>Minimum Price Value: @string.Format($"{prices.Min():c}")</h5>
+<h5>Maximum Price Value: @string.Format($"{prices.Max():c}")</h5>
+
+<h5>Top Five Highest Prices</h5>
+<ul>
+    @foreach (var x in prices.OrderByDescending(p => p).Take(5))
+    {
+        <li>@string.Format($"{x:c}")</li>
+    }
+</ul>

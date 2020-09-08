@@ -1,0 +1,12 @@
+﻿@model MVC2EFSecured.UI.MVC.Models.ContactViewModels
+@{
+    ViewBag.Title = "EmailConfirmation";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    We got your message, @Model.Name ! Please see below. <br /><br />
+
+    @Model.Message
+</p>

@@ -1,0 +1,91 @@
+﻿@model IEnumerable<MVC2EFSecured.DATA.EF_2.Book>
+
+@{
+    ViewBag.Title = "Books";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (Session["DeleteError"] != null)
+{
+    <p id="errorMessage" style="font-weight:bold;font-size:30px; color:red; font-style: italic">@Session["DeleteError"]</p>
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Add New Book", "Create")
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BookImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookStatus.BookStatusName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genre.GenreName)
+            </th>
+            @if (User.IsInRole("Admin"))
+            {
+                <th></th>
+            }
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="~/Content/images/Books/t_@item.BookImage" alt="@item.BookImage" title="@item.BookTitle"></img>
+            </td>
+            <td>
+                @Html.ActionLink(item.BookTitle, "Details", new { id = item.BookID })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookStatus.BookStatusName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre.GenreName)
+            </td>
+            @if (User.IsInRole("Admin"))
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.BookID }) |
+
+                    @if (item.BooksAuthors.Count == 0 && item.BookRoyality == null)
+                    {
+                        @Html.ActionLink("Delete", "Delete", new { id = item.BookID })
+                    }
+                    else
+                    {
+                        <span>In Use</span>
+                    }
+                </td>
+            }
+        </tr>
+    }
+
+</table>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable();
+        });
+    </script>
+
+}

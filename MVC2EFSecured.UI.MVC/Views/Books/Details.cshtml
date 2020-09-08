@@ -1,0 +1,85 @@
+﻿@model MVC2EFSecured.DATA.EF_2.Book
+
+@{
+    ViewBag.Title = Model.BookTitle;
+}
+
+<div id="bookContainer">
+    <div id="bookHeader">
+        <div id="bookHeaderLeft"><h2>@Html.DisplayFor(model => model.BookTitle)</h2></div>
+        <div id="bookHeaderRight">@Html.DisplayFor(model => model.Price)</div>
+        <div class="clearfix"></div>
+    </div>
+    <div id="bookLeft">
+        <p><img src="~/Content/images/Books/@Model.BookImage" alt="@Model.BookTitle"/></p>
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.ISBN): </strong>
+            @Html.DisplayFor(model => model.ISBN)
+        </p>
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.IsSiteFeature): </strong>
+            @Html.DisplayFor(model => model.IsSiteFeature)
+        </p>
+    </div>
+    <div id="bookRight">
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.BookStatus.BookStatusName)</strong>
+            @Html.DisplayFor(model => model.BookStatus.BookStatusName)
+        </p>
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.Publisher.PublisherName)</strong>
+            @Html.DisplayFor(model => model.Publisher.PublisherName)
+        </p>
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.PublishDate)</strong>
+            @Html.DisplayFor(model => model.PublishDate)
+        </p>
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.Genre.GenreName)</strong>
+            @Html.DisplayFor(model => model.Genre.GenreName)
+        </p>
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.IsGenreFeature)</strong>
+            @Html.DisplayFor(model => model.IsGenreFeature)
+        </p>
+        <p>
+            <strong>Author(s)</strong>: <br />
+            @{
+                var authors = Model.BooksAuthors.Where(ba => ba.BookID == Model.BookID);
+                foreach (var a in authors)
+                {
+                    @a.Author.FirstName @a.Author.LastName
+                }
+            }
+        </p>
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.UnitsSold)</strong>
+            @Html.DisplayFor(model => model.UnitsSold)
+        </p>
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.BookRoyality.RoyaltyRate)</strong>
+            @Html.DisplayFor(model => model.BookRoyality.RoyaltyRate)
+        </p>
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.BookRoyality.Advance)</strong>
+            @Html.DisplayFor(model => model.BookRoyality.Advance)
+        </p>
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.Description)</strong>
+            @Html.DisplayFor(model => model.Description)
+        </p>
+    </div>
+    <div class="clearfix"></div>
+    <div id="bookFooter">
+        <div id="bookFooterLeft">
+            @if (User.IsInRole("Admin"))
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = Model.BookID }, new { @class = "btn btn-primary" })
+            }
+        </div>
+        <div id="bookFooterRight">
+            @Html.ActionLink("Back to Books", "Index")
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

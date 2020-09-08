@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
-    <title>Ramayana - Free Bootstrap 4 CSS Template</title>
+    <title>@ViewBag.Title | MVC2 BookStore</title>
     <!-- Bootstrap core CSS -->
     <link href="~/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!--Ramayana CSS Template https://templatemo.com/tm-529-ramayana -->
@@ -16,6 +16,12 @@
     <link rel="stylesheet" href="~/Content/assets/css/fontawesome.css">
     <link rel="stylesheet" href="~/Content/assets/css/templatemo-style.css">
     <link rel="stylesheet" href="~/Content/assets/css/owl.css">
+    <!--DataTables.net css-->
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
+    <!--jQuery UI link-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+    <!--Custom Style Sheet (Should be Last in order to Override previous stylesheets)-->
+    <link href="~/Content/CustomStyles.css" rel="stylesheet" />
 </head>
 
 <body class="is-preload">
@@ -26,7 +32,7 @@
             <div class="inner">
                 <!-- Header -->
                 <header id="header">
-                    <div class="logo">                                                                                                            
+                    <div class="logo">
                         <a href="index.html">Ramayana</a>
                     </div>
                 </header>
@@ -46,26 +52,22 @@
                 <nav id="menu">
                     <ul>
                         <li><a href="@Url.Action("Index","Home")">Homepage</a></li>
-                        <li><a href="@Url.Action("Index","Books")"></a>Books</li>
-                        <li><a href="@Url.Action("Index","Genres")"></a>Genres</li>
-                        <li><a href="@Url.Action("Index","Authors")"></a>Authors</li>
-                        <li><a href="@Url.Action("Index","Publishers")"></a>Publishers</li>
-                        <li>
-                            <span class="opener">Admin Functions</span>
-                            <ul>
-                                <li><a href="@Url.Action("Index","UsersAdmin")">Users Admin</a></li>
-                                <li><a href="@Url.Action("Index","RolesAdmin")">Roles Admin</a></li>
-                            </ul>
-                        </li>
-                        @*<li>
-                                <span class="opener">Users Admin</span>
+                        <li><a href="@Url.Action("Index","Books")">Books</a></li>
+                        <li><a href="@Url.Action("Index","Genres")">Genres</a></li>
+                        <li><a href="@Url.Action("Index","Authors")">Authors</a></li>
+                        @*<li><a href="@Url.Action("Index","Publishers")">Publishers</a></li>*@
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li>
+                                <span class="opener">Admin Functions</span>
                                 <ul>
-                                    <li><a href="#">Sub Menu #1</a></li>
-                                    <li><a href="#">Sub Menu #2</a></li>
-                                    <li><a href="#">Sub Menu #3</a></li>
+                                    <li><a href="@Url.Action("Index","UsersAdmin")">Users Admin</a></li>
+                                    <li><a href="@Url.Action("Index","RolesAdmin")">Roles Admin</a></li>
                                 </ul>
-                            </li>*@
+                            </li>
+                        }
                         <li><a href="@Url.Action("Contact","Home")">Contact</a></li>
+                        @Html.Partial("_LoginPartial")
                     </ul>
                 </nav>
 
@@ -106,6 +108,7 @@
             </div>
         </div>
     </div>
+
     <!-- Scripts -->
     <!-- Bootstrap core JavaScript -->
     <script src="~/Content/vendor/jquery/jquery.min.js"></script>
@@ -115,7 +118,11 @@
     <script src="~/Content/assets/js/transition.js"></script>
     <script src="~/Content/assets/js/owl-carousel.js"></script>
     <script src="~/Content/assets/js/custom.js"></script>
+    <!--Link to jQuery UI-->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!--DataTables.net js-->
+    <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>    
 
-    @RenderSection("scipts", false)
+    @RenderSection("scripts", false)
 </body>
 </html>

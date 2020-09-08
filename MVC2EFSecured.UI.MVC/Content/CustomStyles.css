@@ -1,0 +1,70 @@
+﻿/*My stylesheet for custom css and to override any other CSS values from other sheets*/
+
+#bookContainer{
+    border:4px solid black;
+    box-shadow: 15px 15px gray;
+    padding:1em;
+}
+
+#bookHeader h2{
+    color:#535BA0;/*Purple from the Header*/
+}
+
+#bookHeaderLeft{
+    float:left;
+    width:85%;
+}
+
+#bookHeaderRight{
+    font-size:150%;
+    margin-left:86%;
+    text-align:right;
+}
+
+#bookLeft{
+    float:left;
+    width:40%;
+}
+    #bookLeft img{
+        width:55%;        
+    }
+
+#bookRight{
+    margin-left:41%;
+}
+
+#bookFooter{
+
+}
+
+#bookFooterLeft{
+    float:left;
+    width:49%;
+}
+
+#bookFooterRight{
+    margin-left:50%;
+    text-align:right;
+}
+
+label{
+    font-weight:700;
+}
+
+#bookContainer #ISBN{
+    width:85%;
+    display:inline-block;/*.form-control makes all inputs display:block - which drops them to the next line*/
+}
+#bookContainer #BookStatusID,
+#bookContainer #PublisherID,
+#bookContainer #GenreID{
+    width:50%;
+    display: inline-block;
+}
+#bookContainer #Description{
+    height: 5em;
+    resize: none;
+}
+/*#bookRight{
+    text-align:right;
+}*/
